@@ -1,0 +1,29 @@
+{
+  "index_patterns": ["soc-logs*"],
+  "template": {
+    "mappings": {
+      "properties": {
+        "@timestamp": { "type": "date" },
+        "service_name": { "type": "keyword" },
+        "environment": { "type": "keyword" },
+
+        "endpoint": { "type": "keyword" },
+        "http_method": { "type": "keyword" },
+        "status_code": { "type": "integer" },
+        "latency_ms": { "type": "integer" },
+
+        "request_id": { "type": "keyword" },
+        "trace_id": { "type": "keyword" },
+
+        "client_ip": { "type": "ip" },
+        "user_agent": { "type": "text" },
+        "request_size_bytes": { "type": "long" },
+        "response_size_bytes": { "type": "long" },
+
+        "error_type": { "type": "keyword" },
+        "error_message": { "type": "text" }
+      }
+    }
+  }
+}
+
