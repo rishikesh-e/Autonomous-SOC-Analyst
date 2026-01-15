@@ -1,0 +1,23 @@
+{
+  "index_patterns": ["soc-metrics*"],
+  "template": {
+    "mappings": {
+      "properties": {
+        "window_start": { "type": "date" },
+        "window_end": { "type": "date" },
+
+        "request_count": { "type": "long" },
+        "avg_latency": { "type": "float" },
+        "p95_latency": { "type": "float" },
+        "unique_ips": { "type": "long" },
+
+        "rate_4xx": { "type": "float" },
+        "rate_5xx": { "type": "float" },
+
+        "bytes_in": { "type": "long" },
+        "bytes_out": { "type": "long" }
+      }
+    }
+  }
+}
+
