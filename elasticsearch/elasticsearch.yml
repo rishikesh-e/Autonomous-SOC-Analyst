@@ -1,0 +1,12 @@
+cluster.name: soc-cluster
+node.name: soc-node-1
+
+network.host: 0.0.0.0
+http.port: 9200
+
+discovery.type: single-node
+
+# ---- FULLY DISABLE SECURITY ----
+xpack.security.enabled: false
+xpack.security.transport.ssl.enabled: false
+xpack.security.http.ssl.enabled: false

@@ -1,6 +1,7 @@
 from fastapi import FastAPI, Request
 from middleware import logging_middleware
 from logging_config import setup_logger
+ 
 
 app = FastAPI()
 logger = setup_logger()
@@ -18,4 +19,5 @@ async def health():
 
 @app.get("/fail")
 def fail():
+    
     raise ValueError("forced error for testing")

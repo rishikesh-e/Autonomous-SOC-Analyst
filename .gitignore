@@ -1,0 +1,11 @@
+# Elasticsearch runtime and sensitive files
+elasticsearch/data/
+elasticsearch/logs/
+elasticsearch/config/elasticsearch.keystore
+elasticsearch/config/users
+elasticsearch/config/users_roles
+elasticsearch/config/role_mapping.yml
+
+# Optional: ignore certs if sensitive
+elasticsearch/config/certs/
+
