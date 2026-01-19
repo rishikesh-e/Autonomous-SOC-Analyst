@@ -5,11 +5,26 @@ from fastapi import Request
 
 async def logging_middleware(request: Request, call_next, logger):
     start_time = time.time()
-
     request_id = str(uuid.uuid4())
     trace_id = request.headers.get("X-Trace-Id", request_id)
 
-    response = await call_next(request)
+    try:
+        response = await call_next(request)
+        status_code = response.status_code
+        error_type = None
+        error_message = None
+    except Exception as e:
+        response = None
+        status_code = 500
+        error_type = type(e).__name__
+        error_message = str(e)
+
+        from fastapi.responses import JSONResponse
+        response = JSONResponse(
+            content={"status": "fail", "error": error_message},
+            status_code=500,
+        )
+
     latency_ms = int((time.time() - start_time) * 1000)
 
     logger.info(
@@ -21,16 +36,16 @@ async def logging_middleware(request: Request, call_next, logger):
                 "environment": "dev",
                 "endpoint": request.url.path,
                 "http_method": request.method,
-                "status_code": response.status_code,
+                "status_code": status_code,
                 "latency_ms": latency_ms,
                 "request_id": request_id,
                 "trace_id": trace_id,
                 "client_ip": request.client.host if request.client else "unknown",
                 "user_agent": request.headers.get("user-agent", ""),
                 "request_size_bytes": int(request.headers.get("content-length", 0)),
-                "response_size_bytes": int(response.headers.get("content-length", 0)),
-                "error_type": None,
-                "error_message": None,
+                "response_size_bytes": int(response.headers.get("content-length", 0)) if response else 0,
+                "error_type": error_type,
+                "error_message": error_message,
             }
         },
     )
