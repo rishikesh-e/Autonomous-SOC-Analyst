@@ -248,7 +248,3 @@ curl "http://localhost:9200/soc-logs*/_count"
 # Test Groq API
 python -c "from groq import Groq; print(Groq().chat.completions.create(model='llama-3.3-70b-versatile', messages=[{'role':'user','content':'hi'}]).choices[0].message.content)"
 ```
-
-## License
-
-MIT
