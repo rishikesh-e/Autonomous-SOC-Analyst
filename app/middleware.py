@@ -13,6 +13,15 @@ async def logging_middleware(request: Request, call_next, logger):
         status_code = response.status_code
         error_type = None
         error_message = None
+    except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError) as e:
+        # Client disconnected during response - this is expected behavior
+        # Don't treat as an error, just log at debug level and return gracefully
+        logger.debug(
+            f"Client disconnected during request: {type(e).__name__}",
+            extra={"extra": {"request_id": request_id, "endpoint": request.url.path}}
+        )
+        # Return None to signal the connection was closed
+        return None
     except Exception as e:
         response = None
         status_code = 500

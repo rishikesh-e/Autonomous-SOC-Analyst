@@ -1,0 +1,33 @@
+{
+  "codebase": {
+    "total_loc": 485659,
+    "python_loc": 300047,
+    "typescript_loc": 103364,
+    "python_files": 6278,
+    "typescript_files": 2325
+  },
+  "architecture": {
+    "ai_agents": 6,
+    "api_endpoints": 31,
+    "react_components": 13,
+    "react_pages": 7,
+    "typescript_types": 19,
+    "pydantic_models": 10
+  },
+  "ai_ml": {
+    "ml_features": 9,
+    "attack_types": 7,
+    "mitre_techniques": 12,
+    "response_actions": 6,
+    "llm_integrations": 3
+  },
+  "technologies": {
+    "count": 12,
+    "list": [
+      "Python", "FastAPI", "LangGraph", "Groq API", "Scikit-learn",
+      "React", "TypeScript", "Vite", "TailwindCSS", "Recharts",
+      "WebSocket", "Elasticsearch", "Fluent Bit", "Docker"
+    ]
+  },
+  "generated_at": "2026-02-23T20:11:37+05:30"
+}

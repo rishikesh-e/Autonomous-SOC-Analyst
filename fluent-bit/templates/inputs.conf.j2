@@ -1,0 +1,26 @@
+# Input Configuration for Organization: {{ org_name }}
+# Organization ID: {{ org_id }}
+
+[INPUT]
+    Name              tail
+    Path              {{ log_source_path | default('/var/log/app/*.log') }}
+    Tag               soc.logs.{{ org_id }}
+    Parser            json
+    Read_from_Head    {{ read_from_head | default('true') }}
+    Refresh_Interval  {{ refresh_interval | default(1) }}
+    Rotate_Wait       {{ rotate_wait | default(30) }}
+    Skip_Long_Lines   On
+    DB                /var/lib/fluent-bit/{{ org_id }}_tail.db
+    DB.Sync           Normal
+
+{% if additional_inputs %}
+{% for input in additional_inputs %}
+[INPUT]
+    Name              {{ input.name }}
+    {% for key, value in input.config.items() %}
+    {{ key }}         {{ value }}
+    {% endfor %}
+    Tag               soc.logs.{{ org_id }}.{{ input.tag_suffix | default('extra') }}
+
+{% endfor %}
+{% endif %}

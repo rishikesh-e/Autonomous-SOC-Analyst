@@ -1,3 +1,7 @@
+# Fluent Bit Configuration for Organization: {{ org_name }}
+# Organization ID: {{ org_id }}
+# Generated: {{ generated_at }}
+
 [SERVICE]
     Flush        1
     Daemon       off
@@ -7,11 +11,8 @@
 
     HTTP_Server  On
     HTTP_Listen  0.0.0.0
-    HTTP_Port    2020
+    HTTP_Port    {{ http_port | default(2020) }}
 
 
 @INCLUDE inputs.conf
 @INCLUDE outputs.conf
-
-
-

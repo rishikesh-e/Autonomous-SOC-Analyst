@@ -1,0 +1,48 @@
+# Output Configuration for Organization: {{ org_name }}
+# Organization ID: {{ org_id }}
+
+{% if debug_mode | default(false) %}
+[OUTPUT]
+    Name              stdout
+    Match             soc.logs.{{ org_id }}*
+{% endif %}
+
+[OUTPUT]
+    Name              es
+    Match             soc.logs.{{ org_id }}*
+
+    Host              {{ elasticsearch_host | default('localhost') }}
+    Port              {{ elasticsearch_port | default(9200) }}
+
+    # Tenant-isolated index
+    Index             soc-logs-{{ org_id }}
+    Logstash_Format   {{ logstash_format | default('On') }}
+    Logstash_Prefix   soc-logs-{{ org_id }}
+
+    Replace_Dots      On
+    Suppress_Type_Name On
+    TLS               {{ tls_enabled | default('Off') }}
+    {% if tls_enabled | default(false) %}
+    tls.verify        {{ tls_verify | default('On') }}
+    tls.ca_file       {{ tls_ca_file | default('/etc/ssl/certs/ca-certificates.crt') }}
+    {% endif %}
+
+    {% if elasticsearch_user %}
+    HTTP_User         {{ elasticsearch_user }}
+    HTTP_Passwd       {{ elasticsearch_password }}
+    {% endif %}
+
+    Retry_Limit       {{ retry_limit | default('False') }}
+    Buffer_Size       {{ buffer_size | default('5M') }}
+
+{% if additional_outputs %}
+{% for output in additional_outputs %}
+[OUTPUT]
+    Name              {{ output.name }}
+    Match             soc.logs.{{ org_id }}*
+    {% for key, value in output.config.items() %}
+    {{ key }}         {{ value }}
+    {% endfor %}
+
+{% endfor %}
+{% endif %}

@@ -1,3 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+venv/
+.venv/
+ENV/
+
+# Environment
+.env
+.env.local
+*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# Logs
+logs/
+*.log
+
+# Data
+data/
+*.pkl
+*.pickle
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+.npm
+.pnpm-store/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ML Models
+*.joblib
+*.h5
+*.pb
+
 # Elasticsearch runtime and sensitive files
 elasticsearch/data/
 elasticsearch/logs/
@@ -8,4 +75,9 @@ elasticsearch/config/role_mapping.yml
 
 # Optional: ignore certs if sensitive
 elasticsearch/config/certs/
+
+# Temporary
+tmp/
+temp/
+*.tmp
 
